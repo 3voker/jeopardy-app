@@ -4,17 +4,20 @@ import React, { Component } from "react";
 function Display(props) {
   return (
     <div className="Display">
-      <div className="category">
-        <h2>Category: {props.category}</h2>
+      <div>
+        <h2>Category: {props.category} </h2>
       </div>
       <div>
-        <h2>
+        <h3>Point value: {props.pointValue} </h3>
+      </div>
+      <div>
+        <h4>
           <strong>Question: {props.question}</strong>
           <br />
-        </h2>
+        </h4>
       </div>
-      <div className="score">
-        <h3>Score: {props.score}</h3>
+      <div>
+        <h3 className="Score">Score: {props.score}</h3>
       </div>
     </div>
   );

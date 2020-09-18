@@ -11,7 +11,11 @@ class Jeopardy extends Component {
     this.state = {
       submitted: false,
       data: { category: {} },
-      score: 0,
+      playerStats: {
+        resetCount: 0,
+        score: 0,
+      },
+
       formData: { answer: "" },
     };
   }
@@ -39,19 +43,17 @@ class Jeopardy extends Component {
     event.preventDefault(); //What is .preventDefault?
     this.setState({ submitted: true });
   };
-  checkAnswer(event) {
-    // if (this.state.formData.answer === this.state.data.answer) {
+  checkAnswer(h, e) {
+    let score = this.state.score;
+    let isEqual = false;
+
     //Answer is correct, change color to green.
-    return (
-      <div>
-        <p>
-          You answered
-          {" " + this.state.formData.answer}. The answer is{" "}
-          {this.state.data.answer}!
-        </p>
-      </div>
-    );
-    //}
+    if (h.trim() === e.trim()) {
+      this.isEqual = true;
+    }
+    if (isEqual) {
+      score += this.state.data.value;
+    }
   }
 
   resetForm = (event) => {
@@ -76,13 +78,6 @@ class Jeopardy extends Component {
       return (answer = this.state.data.answer);
     }
   }
-  testScore() {
-    let jeopardyScore = this.state.score;
-
-    this.setState((state, props) => ({
-      score: state.score + state.data.value,
-    }));
-  }
   //display the results on the screen
   render() {
     if (!this.state.submitted) {
@@ -90,6 +85,7 @@ class Jeopardy extends Component {
         <div className="Jeopardy">
           <Display
             category={this.getCategory}
+            pointValue={this.state.data.value}
             question={this.state.data.question}
             score={this.state.score}
           />
@@ -105,33 +101,31 @@ class Jeopardy extends Component {
                   onChange={this.handleChange}
                 />
               </div>
-              <button testScoreButton={this.testScore}> Score + </button>
+
               <button
-                onClick={this.state.formData.answer !== this.state.data.answer}
+                onClick={this.checkAnswer(
+                  this.state.formData.answer,
+                  this.state.data.answer
+                )}
               >
                 Answer Question.
-              </button>{" "}
+              </button>
             </form>
           </div>
         </div>
       );
     } else if (this.state.submitted) {
-      if (this.getAnswer === this.state.formData.answer) {
-        this.state.data.value += this.state.data.score;
+      if (this.state.formData.answer === this.state.formData.answer) {
+        this.state.data.score += this.state.data.value;
         return (
           <div>
-            <p>
-              You answered
-              {" " + this.state.formData.answer}. The answer is{" "}
-              {this.state.data.answer}!
-            </p>
-
-            <button onClick={this.resetForm}>Next Question</button>
-          </div>
-        );
-      } else {
-        return (
-          <div>
+            <Display
+              category={this.getCategory}
+              pointValue={this.state.data.value}
+              question={this.state.data.question}
+              score={this.state.score}
+            />
+            <p> {this.state.data.value}</p>
             <p>
               You answered
               {" " + this.state.formData.answer}. The answer is{" "}
