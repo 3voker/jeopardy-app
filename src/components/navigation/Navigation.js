@@ -7,10 +7,10 @@ export default function Navigation() {
     <div>
       <ul>
         <li>
-          <Link to="/">Home</Link>
+          <Link to="/jeopardy">Jeopardy</Link>
         </li>
         <li>
-          <Link to="/jeopardy">Jeopardy</Link>
+          <Link to="/">Home</Link>
         </li>
       </ul>
     </div>

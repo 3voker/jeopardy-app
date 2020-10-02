@@ -47,10 +47,10 @@ class Jeopardy extends Component {
     let score = this.state.score;
     let isEqual = false;
 
-    //Answer is correct, change color to green.
-    if (h.trim() === e.trim()) {
-      this.isEqual = true;
-    }
+    // //Answer is correct, change color to green.
+    // if (h.trim() === e.trim()) {
+    //   this.isEqual = true;
+    // }
     if (isEqual) {
       score += this.state.data.value;
     }
